@@ -1,7 +1,7 @@
 provider "azurerm" {
     features {}
-    tenant_id = "a87b01fb-40d4-4810-9406-684d63f6ace0"
-    subscription_id = "97147c2c-87f7-4202-8767-4406edbe6da4"
+    tenant_id = "dfgdfgdfgdddddddd"
+    subscription_id = "67776796786786788884dgsdfgdsfg"
 }
 #Create  Resource Group firewall
 resource "azurerm_resource_group" "firewall-rg" {
