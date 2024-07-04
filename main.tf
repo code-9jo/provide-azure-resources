@@ -1,79 +1,42 @@
 provider "azurerm" {
+    subscription_id = ""
+    client_id = ""
+    client_secret = ""
+    tenant_id = ""
     features {}
-    tenant_id = "dfgdfgdfgdddddddd"
-    subscription_id = "67776796786786788884dgsdfgdsfg"
 }
-#Create  Resource Group firewall
-resource "azurerm_resource_group" "firewall-rg" {
-    name = "Demo-firewall-rg"
+resource "azurerm_resource_group" "hub-rg" {
+    name = "Demo-connectivity-hub-rg"
     location = "Southeast Asia"
     tags = {
-        Environment = "rattapon"
-  }
+      environment = "rattapon"
+    }
 }
-#Create  Resource Group App Gateway
-resource "azurerm_resource_group" "app-gateway-rg" {
-    name ="Demo-app-gateway-rg"
+resource "azurerm_resource_group" "identity" {
+    name = "Demo-identity-rg"
     location = "Southeast Asia"
     tags = {
-        Environment = "rattapon"
-  }
+      environment = "rattapon"
+    }
 }
-#Create  Resource Virtual WAN
-resource "azurerm_resource_group" "vwan" {
-    name ="Demo-virtual-wan-rg"
+resource "azurerm_resource_group" "management" {
+    name = "Demo-management-rg"
     location = "Southeast Asia"
     tags = {
-        Environment = "rattapon"
-  }
+      environment = "rattapon"
+    }
 }
-resource "azurerm_resource_group" "Network" {
-    name ="Demo-Network-rg"
+resource "azurerm_resource_group" "prd" {
+    name = "Demo-production-rg"
     location = "Southeast Asia"
     tags = {
-        Environment = "rattapon"
-  }
-}
-#Create Virtual Network
-resource "azurerm_virtual_network" "vnet1" {
-    name = "Demo-hub-vnet"
-    resource_group_name = azurerm_resource_group.Network.name
-    location = azurerm_resource_group.Network.location
-    address_space = ["10.36.0.0/16"]
-    dns_servers = ["8.8.8.8","8.8.4.4"]
-    tags = {
-        Environment = "rattapon"
-  }
-
-    subnet{
-        name = "firewall-subnet"
-        address_prefix = "10.36.0.0/24"
-    }
-
-    subnet {
-        name = "app-gateway-subnet"
-        address_prefix = "10.36.1.0/24"
+      environment = "rattapon"
     }
 }
-#Create Virtul WAN
-resource "azurerm_virtual_wan" "demo-vwan" {
-    name = "demo-vwan"
-    resource_group_name = azurerm_resource_group.vwan.name
-    location = azurerm_resource_group.vwan.location
+resource "azurerm_resource_group" "dev" {
+    name = "Demo-deverlop-rg"
+    location = "Southeast Asia"
     tags = {
-      Environment = "rattapon"
+      environment = "rattapon"
     }
-  
-}
-#Create Virtul HUB
-resource "azurerm_virtual_hub" "hub-vpn" {
-    name = "hub-vpn-connection"
-    resource_group_name = azurerm_resource_group.vwan.name
-    location = azurerm_resource_group.vwan.location
-    virtual_wan_id = azurerm_virtual_wan.demo-vwan.id
-    address_prefix = "10.36.2.0/24"
-    tags = {
-      Environment = "rattapon"
-    }
-  
 }
